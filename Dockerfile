@@ -9,3 +9,5 @@ WORKDIR /physionet2019
 
 ## Install your dependencies here using apt-get etc.
 
+
+RUN R -e "install.packages('xgboost',dependencies=TRUE, repos='http://cran.rstudio.com/')"
