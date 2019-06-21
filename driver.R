@@ -53,11 +53,11 @@ for (file in files){
     num_rows = nrow(data)
     num_cols = ncol(data)
     predictions = matrix(, num_rows, 2)
-    for (t in 1:num_rows){
-        current_data = matrix(data[1:t,], t, num_cols)
+    #for (t in 1:num_rows){
+        current_data = matrix(data[,], num_rows, num_cols)
         current_predictions = get_sepsis_score(current_data, model)
-        predictions[t,] = current_predictions
-    }
+        predictions = current_predictions
+    #}
 
     # Save results.
     output_file = file.path(output_directory, file)
