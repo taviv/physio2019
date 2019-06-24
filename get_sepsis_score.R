@@ -1,6 +1,5 @@
 #!/usr/bin/Rscript
 # Tzvi Aviv tzvika.aviv@gmail.com
-#note modifed driver.R
 #this model was trained with imputed NAs
  
 library(xgboost)
