@@ -1,4 +1,5 @@
-FROM r-base:latest
+FROM rocker/r-ver:3.5.1
+
 
 ## The MAINTAINER instruction sets the Author field of the generated images
 MAINTAINER author@sample.com
