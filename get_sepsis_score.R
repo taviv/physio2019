@@ -2,7 +2,9 @@
 # Tzvi Aviv tzvika.aviv@gmail.com
 #scoring with an 12-hr sliding window model trained in xgboost on setA and B centered July 29th
 # center/scale without saving the entire dataset will be done on the new data 
+#try to speed the script with matrixStats
 library(xgboost)
+library(matrixStats)
 
 counter<-1
 col_sums<-matrix(0,1,82)
@@ -10,12 +12,14 @@ col_sum_dif<-matrix(0,1,82)
 
 get_sepsis_score = function(data, model){
 counter <<- counter+1
-print(counter)   
+#print(counter)   
 temp<- matrix(data=NA,nrow=12,ncol=40)
 num_row<-nrow(utils::tail(data,12))    
 temp[1:num_row,]<-utils::tail(data[,1:40, drop=T],num_row)
-wmean<-apply(temp,2,mean,na.rm=T)
-wsd<-apply(temp,2,sd,na.rm=T)
+#wmean<-apply(temp,2,mean,na.rm=T)
+wmean<-colMeans(temp, na.rm=T)
+#wsd<-apply(temp,2,sd,na.rm=T)
+wsd<-colSds(temp, na.rm=T)
 sat_fi<-wmean[2]/wmean[11]
 sat_fi[is.infinite(sat_fi)] = 5000
 plat_wbc<-wmean[34]/wmean[32]
