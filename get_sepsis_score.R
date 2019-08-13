@@ -51,6 +51,6 @@ label = score > 0.1
 }
 
 load_sepsis_model = function(){
-xgb.load("xgb_windowAB_aug12")
+xgb.load("xgb_windowAB_aug13")
 
 }
