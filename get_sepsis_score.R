@@ -43,7 +43,7 @@ x<-x[,c('X40', 'X35', 'X39', 'X3', 'X1', 'X7', 'X4', 'X41' ,'X5', 'X2' ,'X43' ,'
 
 
 score = predict(model,as.matrix(x))
-label = score > 0.1
+label = score > 0.03 #0.1
 
     predictions = as.matrix(cbind(score, label)) 
     return(predictions)
