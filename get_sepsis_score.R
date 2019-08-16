@@ -1,14 +1,14 @@
 #!/usr/bin/Rscript
 # Tzvi Aviv tzvika.aviv@gmail.com
 #scoring with an 12-hr sliding window model trained in xgboost on setA and B centered July 29th
-# center/scale without saving the entire dataset will be done on the new data 
+# center only without saving the entire dataset will be done on the new data 
 #try to speed the script with matrixStats
 library(xgboost)
 library(matrixStats)
 
 counter<-1
 col_sums<-matrix(0,1,82)
-col_sum_dif<-matrix(0,1,82)
+#col_sum_dif<-matrix(0,1,82)
 
 get_sepsis_score = function(data, model){
 counter <<- counter+1
@@ -29,13 +29,14 @@ xtag<-x
 xtag[is.na(xtag)] <- 0
 col_sums <<- col_sums + xtag
 colmeans<-col_sums/(counter-1)
-coldiff<-(x-colmeans)^2
-colvar<-coldiff
-colvar[is.na(colvar)]<-0  
-col_sum_dif<<-col_sum_dif + colvar
-colsds<-sqrt(col_sum_dif/(counter-1))
+#coldiff<-(x-colmeans)^2
+#colvar<-coldiff
+#colvar[is.na(colvar)]<-0  
+#col_sum_dif<<-col_sum_dif + colvar
+#colsds<-sqrt(col_sum_dif/(counter-1))
 
-x<-data.frame((x-colmeans)/colsds)
+x<-data.frame(x-colmeans)#x-colmeans)/colsds)
+
 
 #select top 20 variables
 x<-x[,c('X40', 'X35', 'X39', 'X3', 'X1', 'X7', 'X4', 'X41' ,'X5', 'X2' ,'X43' ,'X6', 'X22', 'X44', 'X49', 'X46', 'X45', 'X47' ,'X32', 'X48')]
@@ -51,6 +52,6 @@ label = score > 0.03 #0.1
 }
 
 load_sepsis_model = function(){
-xgb.load("xgb_windowAB_aug13")
+xgb.load("xgb_windowAB_aug15")
 
 }
