@@ -52,6 +52,6 @@ label = score > 0.03 #0.1
 }
 
 load_sepsis_model = function(){
-xgb.load("xgb_windowAB_aug15")
-
+#xgb.load("xgb_windowAB_aug15")
+xgb.load("xgb_windowAB_center_aug16") #this is a lower variance model
 }
