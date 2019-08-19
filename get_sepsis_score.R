@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 # Tzvi Aviv tzvika.aviv@gmail.com
 #scoring with an 12-hr sliding window model trained in xgboost on setA and B 
-#aug 18 - best model
+#aug 19 - best model was 1000 nrounds, depth=5, mcw=5, eta=0.2, subsample=0.5
 
 library(xgboost)
 library(matrixStats)
@@ -45,7 +45,7 @@ x<-cbind(x,gender)
 
 
 score = predict(model,as.matrix(x))
-label = score > 0.8
+label = score > 0.75
 
     predictions = as.matrix(cbind(score, label)) 
     return(predictions)
@@ -54,5 +54,5 @@ label = score > 0.8
 
 load_sepsis_model = function(){
 
-xgb.load("xgb_windowAB_aug18") 
+xgb.load("xgb_windowAB_aug19") 
 }
